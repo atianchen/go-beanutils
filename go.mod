@@ -1,3 +1,3 @@
-module github.com/atianchen/go-beanutils/v2
+module github.com/atianchen/go-beanutils
 
 go 1.18
