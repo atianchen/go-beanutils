@@ -12,7 +12,10 @@ var cache = make(map[string]interface{})
 func CopyProperties(data interface{}, source interface{}) error {
 	_type := reflect.TypeOf(data).Elem()
 	_val := reflect.ValueOf(data).Elem()
-	_sourceVal := reflect.ValueOf(source).Elem()
+	_sourceVal := reflect.ValueOf(source)
+	if reflect.TypeOf(source).Kind() == reflect.Pointer {
+		_sourceVal = reflect.ValueOf(source).Elem()
+	}
 	fieldNum := _type.NumField()
 	for i := 0; i < fieldNum; i++ {
 		field := _type.Field(i)
