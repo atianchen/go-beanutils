@@ -19,13 +19,13 @@ func CopyProperties(data interface{}, source interface{}) error {
 	fieldNum := _type.NumField()
 	for i := 0; i < fieldNum; i++ {
 		field := _type.Field(i)
-		if _val.FieldByName(field.Name).IsValid() {
+		if _val.FieldByName(field.Name).IsValid() && _sourceVal.FieldByName(field.Name).IsValid() {
 			switch field.Type.Kind() {
 			case reflect.Pointer:
 				{
 					nv := reflect.New(field.Type.Elem()).Interface()
 					CopyProperties(nv, _sourceVal.FieldByName(field.Name).Interface())
-					_sourceVal.Field(i).Set(reflect.ValueOf(nv))
+					_val.Field(i).Set(reflect.ValueOf(nv))
 				}
 			case reflect.String:
 				{
